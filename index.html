@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mint Speech - Practice speech with clarity and focus.</title>
+    <meta
+      name="description"
+      content="Mint Speech helps you build a simple daily speech practice routine with focused sessions, progress tracking, and a calm app interface."
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --color-bg: #0a0a0b;
+        --color-bg-soft: #111113;
+        --color-bg-muted: #161618;
+        --color-surface: #141416;
+        --color-surface-elevated: #1a1a1d;
+        --color-surface-strong: #222226;
+        --color-border: rgba(255, 255, 255, 0.08);
+        --color-border-strong: rgba(255, 255, 255, 0.14);
+        --color-text-primary: #f2f2f3;
+        --color-text-secondary: #a8a8ad;
+        --color-text-muted: #6e6e74;
+        --color-accent: #4ee28f;
+        --color-accent-hover: #75f3aa;
+        --color-accent-soft: rgba(55, 230, 178, 0.08);
+        --color-accent-border: rgba(55, 230, 178, 0.22);
+        --radius-card: 28px;
+        --radius-panel: 20px;
+        --radius-pill: 999px;
+        --shadow-app: 0 28px 90px rgba(0, 0, 0, 0.42);
+        --shadow-soft: 0 18px 50px rgba(0, 0, 0, 0.28);
+        --container: 1160px;
+        --section-pad: 96px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 78% 6%, rgba(55, 230, 178, 0.04), transparent 28rem),
+          linear-gradient(180deg, #0c0c0d 0%, var(--color-bg) 40%, #090909 100%);
+        color: var(--color-text-primary);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.5;
+        text-rendering: optimizeLegibility;
+      }
+
+      body.menu-open {
+        overflow: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      summary,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 4px;
+      }
+
+      .container {
+        width: min(100% - 40px, var(--container));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        border-bottom: 1px solid var(--color-border);
+        background: rgba(10, 10, 11, 0.82);
+        backdrop-filter: blur(18px);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+        gap: 22px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        border-radius: 14px;
+      }
+
+      .brand-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+      }
+
+      .brand-name {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--color-text-primary);
+        font-size: 1.05rem;
+        font-weight: 720;
+        letter-spacing: 0;
+      }
+
+      .brand-accent {
+        color: var(--color-accent);
+      }
+
+      .brand-dot,
+      .status-dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--color-accent);
+        box-shadow: 0 0 0 4px rgba(55, 230, 178, 0.08);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .nav a {
+        border-radius: var(--radius-pill);
+        color: var(--color-text-secondary);
+        font-size: 0.92rem;
+        font-weight: 620;
+        padding: 10px 14px;
+        transition:
+          background 180ms ease,
+          color 180ms ease;
+      }
+
+      .nav a:hover {
+        background: rgba(255, 255, 255, 0.055);
+        color: var(--color-text-primary);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 44px;
+        border-radius: var(--radius-pill);
+        border: 1px solid transparent;
+        cursor: pointer;
+        font-size: 0.96rem;
+        font-weight: 720;
+        line-height: 1;
+        padding: 0 18px;
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease,
+          background 180ms ease,
+          color 180ms ease,
+          box-shadow 180ms ease;
+        white-space: nowrap;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: var(--color-accent);
+        color: #06110d;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+      }
+
+      .btn-primary:hover {
+        background: var(--color-accent-hover);
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
+      }
+
+      .btn-secondary {
+        border-color: var(--color-border-strong);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--color-text-primary);
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--color-border-strong);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .menu-button {
+        display: none;
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+        background: var(--color-surface);
+        color: var(--color-text-primary);
+      }
+
+      .mobile-nav {
+        display: none;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 86px 0 70px;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 64px 64px;
+        mask-image: radial-gradient(circle at 50% 20%, #000 0%, transparent 68%);
+        opacity: 0.35;
+      }
+
+      .hero-grid {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(280px, 1.08fr);
+        align-items: center;
+        gap: 48px;
+      }
+
+      .hero-copy {
+        max-width: 570px;
+      }
+
+      .availability {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 24px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-pill);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--color-text-secondary);
+        font-size: 0.92rem;
+        font-weight: 680;
+        padding: 9px 14px;
+      }
+
+      .hero h1 {
+        margin: 0;
+        color: var(--color-text-primary);
+        font-size: clamp(3.15rem, 6vw, 5.9rem);
+        font-weight: 760;
+        letter-spacing: 0;
+        line-height: 0.94;
+      }
+
+      .hero p {
+        margin: 24px 0 0;
+        color: var(--color-text-secondary);
+        font-size: clamp(1.05rem, 1.7vw, 1.24rem);
+        max-width: 650px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 34px;
+      }
+
+      .availability-note {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--color-text-muted);
+        font-size: 0.94rem;
+        margin-top: 22px;
+      }
+
+      .preview-shell {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .hero-screenshot-wrap {
+        position: relative;
+        width: 100%;
+        max-width: 680px;
+        margin-left: auto;
+      }
+
+      .hero-screenshot-wrap::before {
+        content: "";
+        position: absolute;
+        inset: 8% 4% -6%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(55, 230, 178, 0.07), transparent 68%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .product-screenshot {
+        position: relative;
+        z-index: 1;
+        display: block;
+        width: 100%;
+        max-width: 680px;
+        height: auto;
+        margin: 0 auto;
+        opacity: 1;
+      }
+
+      .hero-caption {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 680px;
+        margin: 16px auto 0;
+        color: var(--color-text-muted);
+        font-size: 0.84rem;
+        text-align: center;
+      }
+
+      .platform-strip {
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+        background: rgba(16, 16, 18, 0.72);
+        padding: 24px 0;
+      }
+
+      .platform-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+
+      .platform-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 74px;
+        border: 1px solid var(--color-border);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.035);
+        padding: 16px;
+      }
+
+      .platform-card.available {
+        border-color: rgba(55, 230, 178, 0.2);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .platform-name {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--color-text-primary);
+        font-weight: 720;
+      }
+
+      .platform-status {
+        border-radius: var(--radius-pill);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--color-text-muted);
+        font-size: 0.73rem;
+        font-weight: 760;
+        padding: 6px 9px;
+        white-space: nowrap;
+      }
+
+      .platform-card.available .platform-status {
+        background: rgba(55, 230, 178, 0.12);
+        color: var(--color-accent);
+      }
+
+      .section {
+        padding: var(--section-pad) 0;
+      }
+
+      .section-muted {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.01));
+      }
+
+      .section-heading {
+        max-width: 720px;
+        margin-bottom: 42px;
+      }
+
+      .section-heading.center {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+
+      .section-heading h2 {
+        margin: 0;
+        color: var(--color-text-primary);
+        font-size: clamp(2.25rem, 4.2vw, 3.9rem);
+        font-weight: 760;
+        letter-spacing: 0;
+        line-height: 1;
+      }
+
+      .section-heading p {
+        margin: 18px 0 0;
+        color: var(--color-text-secondary);
+        font-size: 1.08rem;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+
+      .feature-card,
+      .step-card,
+      .download-card,
+      .faq-item {
+        border: 1px solid var(--color-border);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.026));
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.035) inset;
+      }
+
+      .feature-card {
+        min-height: 246px;
+        border-radius: var(--radius-panel);
+        padding: 28px;
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease,
+          background 180ms ease;
+      }
+
+      .feature-card:hover {
+        border-color: var(--color-border-strong);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+        transform: translateY(-2px);
+      }
+
+      .feature-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--color-border);
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--color-text-secondary);
+        margin-bottom: 24px;
+        transition:
+          border-color 180ms ease,
+          color 180ms ease,
+          background 180ms ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        border-color: rgba(55, 230, 178, 0.24);
+        background: rgba(55, 230, 178, 0.06);
+        color: var(--color-accent);
+      }
+
+      .feature-card h3,
+      .step-card h3,
+      .download-card h3 {
+        margin: 0;
+        color: var(--color-text-primary);
+        font-size: 1.18rem;
+        font-weight: 740;
+        letter-spacing: 0;
+      }
+
+      .feature-card p,
+      .step-card p,
+      .download-card p {
+        margin: 12px 0 0;
+        color: var(--color-text-secondary);
+        font-size: 1rem;
+      }
+
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+
+      .step-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--radius-panel);
+        padding: 30px;
+      }
+
+      .step-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.04), transparent 14rem);
+        opacity: 0.9;
+        pointer-events: none;
+      }
+
+      .step-card > * {
+        position: relative;
+      }
+
+      .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 15px;
+        border: 1px solid var(--color-border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--color-text-primary);
+        font-weight: 800;
+        margin-bottom: 32px;
+      }
+
+      .interface-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+
+      .interface-card {
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-panel);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.035) inset;
+        padding: 28px;
+        min-height: 200px;
+      }
+
+      .interface-card-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--color-text-muted);
+        margin-bottom: 18px;
+      }
+
+      .interface-card h3 {
+        margin: 0;
+        color: var(--color-text-primary);
+        font-size: 1.08rem;
+        font-weight: 740;
+      }
+
+      .interface-card p {
+        margin: 10px 0 0;
+        color: var(--color-text-secondary);
+        font-size: 0.98rem;
+      }
+
+      .download-panel {
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-card);
+        background: linear-gradient(180deg, var(--color-surface-elevated), var(--color-surface));
+        box-shadow: var(--shadow-app);
+        padding: 42px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .download-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 320px;
+        height: 320px;
+        background: radial-gradient(circle, rgba(55, 230, 178, 0.07), transparent 70%);
+        pointer-events: none;
+      }
+
+      .download-panel > * {
+        position: relative;
+      }
+
+      .download-intro {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+        max-width: 780px;
+        margin-bottom: 34px;
+      }
+
+      .download-intro img {
+        width: 58px;
+        height: 58px;
+        border-radius: 17px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+      }
+
+      .download-intro h2 {
+        margin: 0;
+        color: var(--color-text-primary);
+        font-size: clamp(2rem, 4vw, 3.35rem);
+        font-weight: 760;
+        letter-spacing: 0;
+        line-height: 1;
+      }
+
+      .download-intro p {
+        margin: 14px 0 0;
+        color: var(--color-text-secondary);
+        font-size: 1.06rem;
+      }
+
+      .download-grid {
+        display: grid;
+        grid-template-columns: 1.25fr repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .download-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 230px;
+        border-radius: var(--radius-panel);
+        padding: 24px;
+      }
+
+      .download-card.active {
+        border-color: rgba(55, 230, 178, 0.22);
+        background: linear-gradient(180deg, rgba(55, 230, 178, 0.06), rgba(255, 255, 255, 0.03));
+      }
+
+      .download-card.disabled {
+        opacity: 0.58;
+      }
+
+      .disabled-pill {
+        display: inline-flex;
+        justify-content: center;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-pill);
+        color: var(--color-text-muted);
+        font-size: 0.9rem;
+        font-weight: 720;
+        padding: 12px 14px;
+      }
+
+      .faq-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .faq-item {
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .faq-item summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        cursor: pointer;
+        color: var(--color-text-primary);
+        font-size: 1.06rem;
+        font-weight: 740;
+        list-style: none;
+        padding: 22px 24px;
+      }
+
+      .faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .faq-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.055);
+        color: var(--color-text-secondary);
+        flex: 0 0 auto;
+        transition: transform 180ms ease;
+      }
+
+      .faq-item[open] {
+        border-color: var(--color-border-strong);
+      }
+
+      .faq-item[open] .faq-icon {
+        transform: rotate(180deg);
+        color: var(--color-accent);
+      }
+
+      .faq-answer {
+        border-top: 1px solid var(--color-border);
+        color: var(--color-text-secondary);
+        font-size: 1rem;
+        padding: 0 24px 24px;
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--color-border);
+        background: rgba(10, 10, 11, 0.92);
+        padding: 58px 0 30px;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.35fr repeat(3, 1fr);
+        gap: 46px;
+      }
+
+      .footer-brand p {
+        max-width: 330px;
+        color: var(--color-text-secondary);
+        margin: 18px 0 0;
+      }
+
+      .footer-col h3 {
+        margin: 0 0 16px;
+        color: var(--color-text-primary);
+        font-size: 0.95rem;
+      }
+
+      .footer-col ul {
+        display: grid;
+        gap: 11px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .footer-col a,
+      .footer-col span {
+        color: var(--color-text-muted);
+        font-size: 0.94rem;
+      }
+
+      .footer-col a:hover {
+        color: var(--color-accent-hover);
+      }
+
+      .footer-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        border-top: 1px solid var(--color-border);
+        color: var(--color-text-muted);
+        font-size: 0.9rem;
+        margin-top: 48px;
+        padding-top: 26px;
+      }
+
+      .footer-status {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .status-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .status-item.muted .status-dot {
+        background: var(--color-text-muted);
+        box-shadow: none;
+      }
+
+      .icon {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 auto;
+      }
+
+      @media (max-width: 1040px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-copy {
+          max-width: 780px;
+        }
+
+        .hero-screenshot-wrap {
+          max-width: 640px;
+          margin: 8px auto 0;
+        }
+
+        .feature-grid,
+        .steps-grid,
+        .interface-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .download-grid,
+        .platform-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 760px) {
+        :root {
+          --section-pad: 68px;
+        }
+
+        .container {
+          width: min(100% - 28px, var(--container));
+        }
+
+        .header-inner {
+          min-height: 66px;
+        }
+
+        .nav,
+        .header-actions {
+          display: none;
+        }
+
+        .menu-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .mobile-nav {
+          border-top: 1px solid var(--color-border);
+          background: rgba(10, 10, 11, 0.96);
+          padding: 14px;
+        }
+
+        .mobile-nav.open {
+          display: block;
+        }
+
+        .mobile-nav a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 48px;
+          border-radius: 15px;
+          color: var(--color-text-secondary);
+          font-weight: 700;
+        }
+
+        .mobile-nav a:hover {
+          background: rgba(255, 255, 255, 0.05);
+          color: var(--color-text-primary);
+        }
+
+        .mobile-nav .btn {
+          margin-top: 8px;
+          width: 100%;
+          color: #06110d;
+        }
+
+        .hero {
+          padding: 58px 0 48px;
+        }
+
+        .hero h1 {
+          font-size: clamp(2.8rem, 14vw, 4.1rem);
+        }
+
+        .hero-actions,
+        .hero-actions .btn {
+          width: 100%;
+        }
+
+        .download-intro,
+        .footer-bottom {
+          grid-template-columns: 1fr;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .feature-grid,
+        .steps-grid,
+        .interface-grid,
+        .download-grid,
+        .platform-grid,
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .platform-card {
+          min-height: 66px;
+        }
+
+        .hero-screenshot-wrap {
+          max-width: 100%;
+          margin: 8px auto 0;
+        }
+
+        .preview-shell {
+          align-items: stretch;
+        }
+
+        .hero-caption {
+          text-align: left;
+        }
+
+        .download-panel {
+          padding: 26px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#" aria-label="Mint Speech home">
+          <img
+            class="brand-icon"
+            src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/fad76f4c-68f8-4268-a3e5-4c9f11c181a7_320w.png"
+            alt="Mint Speech app icon"
+          />
+          <span class="brand-name">
+            <span>Mint</span>
+            <span class="brand-accent">Speech</span>
+            <span class="brand-dot" aria-hidden="true"></span>
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#interface">Interface</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="btn btn-primary" href="#download">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Download for Mac
+          </a>
+        </div>
+
+        <button class="menu-button" id="mobile-menu-btn" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="mobile-nav" id="mobile-menu" aria-label="Mobile navigation">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#interface">Interface</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn btn-primary" href="#download">Download for Mac</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="availability">
+              <span class="status-dot" aria-hidden="true"></span>
+              Available now for macOS
+            </div>
+            <h1>Practice speech with clarity, focus, and consistency.</h1>
+            <p>
+              Mint Speech helps you build a simple daily practice routine with focused sessions,
+              voice controls, and a calm interface designed to keep you moving.
+            </p>
+            <div class="hero-actions">
+              <!-- TODO: Replace with live Mac App Store URL -->
+              <a class="btn btn-primary" href="#download">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Download for Mac
+              </a>
+              <a class="btn btn-secondary" href="#features">View Features</a>
+            </div>
+            <div class="availability-note">
+              <span class="status-dot" aria-hidden="true"></span>
+              Available for macOS. Windows, iOS, and Android are in development.
+            </div>
+          </div>
+
+          <div class="preview-shell" aria-label="Mint Speech app screenshot preview">
+            <div class="hero-screenshot-wrap">
+              <img
+                class="product-screenshot"
+                src="/assets/marketing/mint-speech-hero-app-window.png"
+                data-marketing-asset="heroAppWindow"
+                width="598"
+                height="707"
+                fetchpriority="high"
+                alt="Mint Speech app interface showing speech practice text, voice controls, and presets."
+              />
+            </div>
+            <p class="hero-caption">Premium Text to Speech, voice controls, globally available on your device.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="platform-strip" aria-label="Platform availability">
+        <div class="container platform-grid">
+          <div class="platform-card available">
+            <div class="platform-name">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16.6 13.2c0-2.1 1.7-3.1 1.8-3.2-1-.9-2.4-1-2.9-1-1.2-.1-2.4.7-3 .7-.7 0-1.7-.7-2.7-.7-1.4 0-2.7.8-3.4 2.1-1.5 2.6-.4 6.4 1.1 8.4.7 1 1.5 2.1 2.6 2.1 1.1 0 1.5-.7 2.8-.7s1.7.7 2.8.7 1.9-1 2.5-2c.8-1.1 1.1-2.2 1.1-2.3-.1 0-2.7-1-2.7-4.1ZM14.7 7.7c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.6.6-1 1.6-.9 2.6 1 0 1.9-.5 2.5-1.2Z" fill="currentColor" /></svg>
+              macOS
+            </div>
+            <span class="platform-status">Available now</span>
+          </div>
+          <div class="platform-card" aria-disabled="true">
+            <div class="platform-name">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 5.5 10.5 4v7H3V5.5Zm9-1.8L21 2v9h-9V3.7ZM3 13h7.5v7L3 18.5V13Zm9 0h9v9l-9-1.7V13Z" fill="currentColor" /></svg>
+              Windows
+            </div>
+            <span class="platform-status">In development</span>
+          </div>
+          <div class="platform-card" aria-disabled="true">
+            <div class="platform-name">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm3 17h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+              iOS
+            </div>
+            <span class="platform-status">In development</span>
+          </div>
+          <div class="platform-card" aria-disabled="true">
+            <div class="platform-name">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 9h10v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V9Zm2-4 1.2 2M15 5l-1.2 2M7 12H5m14 0h-2m-8 8v2m6-2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+              Android
+            </div>
+            <span class="platform-status">In development</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Everything you need for focused speech practice.</h2>
+            <p>Purpose-built tools for daily sessions, steady progress, and a calmer workspace.</p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="feature-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M7.8 7.8l2.8 2.8m2.8 2.8 2.8 2.8m0-8.4-2.8 2.8m-2.8 2.8-2.8 2.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></span>
+              <h3>Guided Practice</h3>
+              <p>Follow focused exercises that keep each session simple, clear, and repeatable.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 19V5m4 14v-7m4 7V8m4 11v-4m4 4V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></span>
+              <h3>Progress Tracking</h3>
+              <p>Review practice history, streaks, and weekly completion without leaving the flow.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4zM8 9h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              <h3>Calm Workspace</h3>
+              <p>A dark, focused interface keeps attention on the exercise and your speaking rhythm.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M8 2v4m8-4v4M4 9h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm4 9 2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              <h3>Personalized Routine</h3>
+              <p>Choose the practice path that fits your goals and build a daily habit around it.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M7 7v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V7M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></span>
+              <h3>Cross-Platform Roadmap</h3>
+              <p>Start on macOS today while Windows, iOS, and Android versions are in development.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5c0 4.5 2.9 8.7 7 10 4.1-1.3 7-5.5 7-10V6l-7-3Zm-3 9 2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              <h3>Privacy-Minded</h3>
+              <p>Built with a respectful approach to practice data and a focused local app feel.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-muted" id="how-it-works">
+        <div class="container">
+          <div class="section-heading center">
+            <h2>Start practicing in minutes.</h2>
+            <p>Three simple steps from install to a repeatable speech practice routine.</p>
+          </div>
+          <div class="steps-grid">
+            <article class="step-card">
+              <span class="step-number">1</span>
+              <h3>Download Mint Speech</h3>
+              <p>Install the macOS app and open a focused workspace built for practice.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">2</span>
+              <h3>Choose your practice</h3>
+              <p>Select a session or routine that matches the speech skills you want to reinforce.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">3</span>
+              <h3>Build consistency</h3>
+              <p>Practice regularly, track momentum, and keep your routine easy to return to.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="interface">
+        <div class="container">
+          <div class="section-heading">
+            <h2>A focused interface that keeps practice simple.</h2>
+            <p>Mint Speech feels like a calm dashboard: clear session controls, useful progress, and no unnecessary noise.</p>
+          </div>
+          <!-- TODO: Add additional real Mint Speech screenshots when available. -->
+          <div class="interface-grid">
+            <article class="interface-card">
+              <span class="interface-card-icon" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h10M4 18h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+              </span>
+              <h3>Focused practice sessions</h3>
+              <p>Controls are large enough to use quickly, then fade back into the workspace so speech stays center stage.</p>
+            </article>
+            <article class="interface-card">
+              <span class="interface-card-icon" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 3a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Zm-7 9v2a7 7 0 0 0 14 0v-2M12 19v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+              </span>
+              <h3>Voice controls and presets</h3>
+              <p>The app centers speech text, playback, recording, voice selection, and preset controls in one calm view.</p>
+            </article>
+            <article class="interface-card">
+              <span class="interface-card-icon" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M8 2v4m8-4v4M4 9h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+              <h3>Calm daily routine</h3>
+              <p>Dark neutral surfaces and steady layout make it easy to return every day and stay with the task.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-muted" id="download">
+        <div class="container">
+          <div class="download-panel">
+            <div class="download-intro">
+              <img
+                src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/fad76f4c-68f8-4268-a3e5-4c9f11c181a7_320w.png"
+                alt="Mint Speech app icon"
+              />
+              <div>
+                <h2>Download Mint Speech for Mac.</h2>
+                <p>Start practicing on macOS today. Windows, iOS, and Android are currently in development.</p>
+              </div>
+            </div>
+
+            <div class="download-grid">
+              <article class="download-card active">
+                <div>
+                  <h3>macOS</h3>
+                  <p>Available now for Mac.</p>
+                </div>
+                <!-- TODO: Replace with live Mac App Store URL -->
+                <a class="btn btn-primary" href="#">Download for Mac</a>
+              </article>
+              <article class="download-card disabled" aria-disabled="true">
+                <div>
+                  <h3>Windows</h3>
+                  <p>Currently in development.</p>
+                </div>
+                <span class="disabled-pill">In development</span>
+              </article>
+              <article class="download-card disabled" aria-disabled="true">
+                <div>
+                  <h3>iOS</h3>
+                  <p>Currently in development.</p>
+                </div>
+                <span class="disabled-pill">In development</span>
+              </article>
+              <article class="download-card disabled" aria-disabled="true">
+                <div>
+                  <h3>Android</h3>
+                  <p>Currently in development.</p>
+                </div>
+                <span class="disabled-pill">In development</span>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="container">
+          <div class="section-heading center">
+            <h2>Frequently asked questions</h2>
+            <p>Clear answers about platforms, purpose, and what Mint Speech is designed to do.</p>
+          </div>
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary>
+                <span>What is Mint Speech?</span>
+                <span class="faq-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              </summary>
+              <div class="faq-answer">Mint Speech is a focused app for speech practice, helping users build consistency and confidence through guided exercises in a calm interface.</div>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>Which platforms are supported?</span>
+                <span class="faq-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              </summary>
+              <div class="faq-answer">Mint Speech is currently available for macOS. Windows, iOS, and Android versions are in development.</div>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>Does Mint Speech replace therapy or professional care?</span>
+                <span class="faq-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              </summary>
+              <div class="faq-answer">No. Mint Speech is a practice tool and does not replace guidance from a qualified professional.</div>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>Is Mint Speech free?</span>
+                <span class="faq-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              </summary>
+              <div class="faq-answer"><!-- TODO: Update with actual pricing details when available. -->Check the Mac App Store page for current pricing and available options.</div>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>Can I use Mint Speech every day?</span>
+                <span class="faq-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              </summary>
+              <div class="faq-answer">Yes. Mint Speech is designed to support simple, consistent daily practice routines without feeling overwhelming.</div>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>When will other platforms be available?</span>
+                <span class="faq-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              </summary>
+              <div class="faq-answer">Windows, iOS, and Android versions are currently in development. Release timing will be shared when available.</div>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="brand" href="#" aria-label="Mint Speech home">
+              <img
+                class="brand-icon"
+                src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/fad76f4c-68f8-4268-a3e5-4c9f11c181a7_320w.png"
+                alt="Mint Speech app icon"
+              />
+              <span class="brand-name">
+                <span>Mint</span>
+                <span class="brand-accent">Speech</span>
+                <span class="brand-dot" aria-hidden="true"></span>
+              </span>
+            </a>
+            <p>Clearer speech practice, built around calm daily focus and steady progress.</p>
+          </div>
+          <div class="footer-col">
+            <h3>Product</h3>
+            <ul>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#download">Download</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="#faq">FAQ</a></li>
+              <!-- TODO: Add Contact URL or email. -->
+              <li><a href="#">Contact</a></li>
+              <li><span>macOS available now</span></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3>Legal</h3>
+            <ul>
+              <!-- TODO: Add Privacy Policy URL. -->
+              <li><a href="#">Privacy Policy</a></li>
+              <!-- TODO: Add Terms URL. -->
+              <li><a href="#">Terms of Service</a></li>
+              <li><span>Windows, iOS, Android in development</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© <span id="year"></span> Mint Speech. All rights reserved.</span>
+          <div class="footer-status">
+            <span class="status-item"><span class="status-dot" aria-hidden="true"></span> Mac available</span>
+            <span class="status-item muted"><span class="status-dot" aria-hidden="true"></span> Windows/iOS/Android in development</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const marketingAssets = {
+        heroAppWindow: "/assets/marketing/mint-speech-hero-app-window.png",
+        heroAppWindowStatic: "public/assets/marketing/mint-speech-hero-app-window.png",
+      };
+
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const year = document.getElementById("year");
+
+      document.querySelectorAll("[data-marketing-asset='heroAppWindow']").forEach((image) => {
+        image.addEventListener("error", () => {
+          if (image.dataset.fallbackApplied === "true") return;
+          image.dataset.fallbackApplied = "true";
+          image.src = marketingAssets.heroAppWindowStatic;
+        });
+
+        const isStaticPreview =
+          window.location.protocol === "file:" ||
+          window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1";
+
+        image.src = isStaticPreview
+          ? marketingAssets.heroAppWindowStatic
+          : marketingAssets.heroAppWindow;
+      });
+
+      year.textContent = new Date().getFullYear();
+
+      mobileMenuBtn.addEventListener("click", () => {
+        const isOpen = mobileMenu.classList.toggle("open");
+        mobileMenuBtn.setAttribute("aria-expanded", String(isOpen));
+        document.body.classList.toggle("menu-open", isOpen);
+      });
+
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("open");
+          mobileMenuBtn.setAttribute("aria-expanded", "false");
+          document.body.classList.remove("menu-open");
+        });
+      });
+    </script>
+  </body>
+</html>
