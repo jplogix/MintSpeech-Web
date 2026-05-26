@@ -32,7 +32,8 @@
         --shadow-app: 0 28px 90px rgba(0, 0, 0, 0.42);
         --shadow-soft: 0 18px 50px rgba(0, 0, 0, 0.28);
         --container: 1160px;
-        --section-pad: 96px;
+        --section-pad: 104px;
+        --section-pad-lg: 120px;
       }
 
       * {
@@ -230,7 +231,7 @@
       .hero {
         position: relative;
         overflow: hidden;
-        padding: 86px 0 70px;
+        padding: 96px 0 88px;
       }
 
       .hero::before {
@@ -249,13 +250,13 @@
       .hero-grid {
         position: relative;
         display: grid;
-        grid-template-columns: minmax(0, 0.92fr) minmax(280px, 1.08fr);
+        grid-template-columns: minmax(0, 0.82fr) minmax(300px, 1.18fr);
         align-items: center;
-        gap: 48px;
+        gap: 56px 64px;
       }
 
       .hero-copy {
-        max-width: 570px;
+        max-width: 540px;
       }
 
       .availability {
@@ -275,28 +276,25 @@
       .hero h1 {
         margin: 0;
         color: var(--color-text-primary);
-        font-size: clamp(3.15rem, 6vw, 5.9rem);
+        font-size: clamp(2.75rem, 5.4vw, 4.5rem);
         font-weight: 760;
-        letter-spacing: 0;
-        line-height: 0.94;
-      }
-
-      .hero-title-line {
-        white-space: nowrap;
+        letter-spacing: -0.02em;
+        line-height: 1.04;
       }
 
       .hero p {
-        margin: 24px 0 0;
+        margin: 28px 0 0;
         color: var(--color-text-secondary);
-        font-size: clamp(1.05rem, 1.7vw, 1.24rem);
-        max-width: 650px;
+        font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+        line-height: 1.65;
+        max-width: 520px;
       }
 
       .hero-actions {
         display: flex;
         flex-wrap: wrap;
         gap: 14px;
-        margin-top: 34px;
+        margin-top: 36px;
       }
 
       .availability-note {
@@ -305,7 +303,8 @@
         gap: 9px;
         color: var(--color-text-muted);
         font-size: 0.94rem;
-        margin-top: 22px;
+        line-height: 1.5;
+        margin-top: 26px;
       }
 
       .preview-shell {
@@ -318,18 +317,8 @@
       .hero-screenshot-wrap {
         position: relative;
         width: 100%;
-        max-width: 680px;
+        max-width: 760px;
         margin-left: auto;
-      }
-
-      .hero-screenshot-wrap::before {
-        content: "";
-        position: absolute;
-        inset: 8% 4% -6%;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(55, 230, 178, 0.07), transparent 68%);
-        pointer-events: none;
-        z-index: 0;
       }
 
       .product-screenshot {
@@ -337,21 +326,11 @@
         z-index: 1;
         display: block;
         width: 100%;
-        max-width: 680px;
+        max-width: 760px;
         height: auto;
         margin: 0 auto;
         opacity: 1;
-      }
-
-      .hero-caption {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        max-width: 680px;
-        margin: 16px auto 0;
-        color: var(--color-text-muted);
-        font-size: 0.84rem;
-        text-align: center;
+        filter: drop-shadow(0 28px 56px rgba(0, 0, 0, 0.38));
       }
 
       .platform-strip {
@@ -402,6 +381,10 @@
         white-space: nowrap;
       }
 
+      .platform-card:not(.available) {
+        opacity: 0.72;
+      }
+
       .platform-card.available .platform-status {
         background: rgba(55, 230, 178, 0.12);
         color: var(--color-accent);
@@ -411,13 +394,27 @@
         padding: var(--section-pad) 0;
       }
 
+      .section-lg {
+        padding: var(--section-pad-lg) 0;
+      }
+
       .section-muted {
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.01));
       }
 
       .section-heading {
         max-width: 720px;
-        margin-bottom: 42px;
+        margin-bottom: 52px;
+      }
+
+      .section-eyebrow {
+        display: inline-block;
+        margin: 0 0 14px;
+        color: var(--color-text-muted);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
       .section-heading.center {
@@ -426,19 +423,30 @@
         text-align: center;
       }
 
+      .section-heading.center .section-eyebrow {
+        display: block;
+      }
+
       .section-heading h2 {
         margin: 0;
         color: var(--color-text-primary);
-        font-size: clamp(2.25rem, 4.2vw, 3.9rem);
+        font-size: clamp(2rem, 3.6vw, 3.1rem);
         font-weight: 760;
-        letter-spacing: 0;
-        line-height: 1;
+        letter-spacing: -0.02em;
+        line-height: 1.08;
       }
 
       .section-heading p {
-        margin: 18px 0 0;
+        margin: 20px 0 0;
         color: var(--color-text-secondary);
-        font-size: 1.08rem;
+        font-size: 1.06rem;
+        line-height: 1.65;
+        max-width: 640px;
+      }
+
+      .section-heading.center p {
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .feature-grid {
@@ -457,9 +465,9 @@
       }
 
       .feature-card {
-        min-height: 246px;
+        min-height: 250px;
         border-radius: var(--radius-panel);
-        padding: 28px;
+        padding: 32px;
         transition:
           transform 180ms ease,
           border-color 180ms ease,
@@ -468,31 +476,35 @@
 
       .feature-card:hover {
         border-color: var(--color-border-strong);
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
-        transform: translateY(-2px);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.03));
+        transform: translateY(-1px);
       }
 
       .feature-icon {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 42px;
-        height: 42px;
+        width: 44px;
+        height: 44px;
         border: 1px solid var(--color-border);
-        border-radius: 15px;
+        border-radius: 14px;
         background: rgba(255, 255, 255, 0.04);
         color: var(--color-text-secondary);
-        margin-bottom: 24px;
+        margin-bottom: 26px;
         transition:
           border-color 180ms ease,
           color 180ms ease,
           background 180ms ease;
       }
 
+      .feature-icon .icon {
+        width: 22px;
+        height: 22px;
+      }
+
       .feature-card:hover .feature-icon {
-        border-color: rgba(55, 230, 178, 0.24);
-        background: rgba(55, 230, 178, 0.06);
-        color: var(--color-accent);
+        border-color: rgba(255, 255, 255, 0.16);
+        color: var(--color-text-primary);
       }
 
       .feature-card h3,
@@ -509,30 +521,35 @@
       .step-card p,
       .download-card p {
         margin: 12px 0 0;
-        color: var(--color-text-secondary);
+        color: #b0b0b6;
         font-size: 1rem;
+        line-height: 1.6;
       }
 
-      .steps-grid {
+      .steps-timeline {
+        position: relative;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 22px;
+        gap: 24px;
+      }
+
+      .steps-timeline::before {
+        content: "";
+        position: absolute;
+        top: 30px;
+        left: calc(16.666% + 28px);
+        right: calc(16.666% + 28px);
+        height: 1px;
+        background: var(--color-border);
+        pointer-events: none;
       }
 
       .step-card {
         position: relative;
         overflow: hidden;
         border-radius: var(--radius-panel);
-        padding: 30px;
-      }
-
-      .step-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.04), transparent 14rem);
-        opacity: 0.9;
-        pointer-events: none;
+        padding: 36px 32px 34px;
+        min-height: 220px;
       }
 
       .step-card > * {
@@ -543,54 +560,81 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 44px;
-        height: 44px;
-        border-radius: 15px;
-        border: 1px solid var(--color-border);
-        background: rgba(255, 255, 255, 0.06);
-        color: var(--color-text-primary);
+        width: 56px;
+        height: 56px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--color-accent-border);
+        background: var(--color-accent-soft);
+        color: var(--color-accent);
+        font-size: 1.15rem;
         font-weight: 800;
-        margin-bottom: 32px;
+        margin-bottom: 28px;
       }
 
-      .interface-grid {
+      .interface-layout {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 22px;
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        gap: 56px;
+        align-items: start;
       }
 
-      .interface-card {
+      .interface-copy {
+        max-width: 480px;
+        padding-top: 8px;
+      }
+
+      .interface-copy .section-heading {
+        margin-bottom: 0;
+      }
+
+      .interface-panels {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .interface-panel {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 18px;
+        align-items: start;
         border: 1px solid var(--color-border);
-        border-radius: var(--radius-panel);
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
-        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.035) inset;
-        padding: 28px;
-        min-height: 200px;
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+        padding: 22px 24px;
+        transition: border-color 180ms ease;
       }
 
-      .interface-card-icon {
+      .interface-panel:hover {
+        border-color: var(--color-border-strong);
+      }
+
+      .interface-panel-icon {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
         border-radius: 12px;
-        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--color-border);
+        background: rgba(255, 255, 255, 0.04);
         color: var(--color-text-muted);
-        margin-bottom: 18px;
+        flex-shrink: 0;
       }
 
-      .interface-card h3 {
+      .interface-panel h3 {
         margin: 0;
         color: var(--color-text-primary);
-        font-size: 1.08rem;
+        font-size: 1.04rem;
         font-weight: 740;
       }
 
-      .interface-card p {
-        margin: 10px 0 0;
-        color: var(--color-text-secondary);
-        font-size: 0.98rem;
+      .interface-panel p {
+        margin: 6px 0 0;
+        color: #b0b0b6;
+        font-size: 0.96rem;
+        line-height: 1.58;
       }
 
       .download-panel {
@@ -608,9 +652,9 @@
         position: absolute;
         top: 0;
         right: 0;
-        width: 320px;
-        height: 320px;
-        background: radial-gradient(circle, rgba(55, 230, 178, 0.07), transparent 70%);
+        width: 280px;
+        height: 280px;
+        background: radial-gradient(circle, rgba(55, 230, 178, 0.04), transparent 70%);
         pointer-events: none;
       }
 
@@ -671,6 +715,8 @@
 
       .download-card.disabled {
         opacity: 0.58;
+        pointer-events: none;
+        user-select: none;
       }
 
       .disabled-pill {
@@ -684,9 +730,15 @@
         padding: 12px 14px;
       }
 
+      .section-faq .section-heading {
+        margin-bottom: 56px;
+      }
+
       .faq-list {
         display: grid;
-        gap: 14px;
+        gap: 12px;
+        max-width: 860px;
+        margin: 0 auto;
       }
 
       .faq-item {
@@ -699,12 +751,17 @@
         align-items: center;
         justify-content: space-between;
         gap: 18px;
+        min-height: 64px;
         cursor: pointer;
         color: var(--color-text-primary);
-        font-size: 1.06rem;
+        font-size: 1.05rem;
         font-weight: 740;
         list-style: none;
-        padding: 22px 24px;
+        padding: 20px 26px;
+      }
+
+      .faq-item summary:focus-visible {
+        outline-offset: -2px;
       }
 
       .faq-item summary::-webkit-details-marker {
@@ -735,9 +792,10 @@
 
       .faq-answer {
         border-top: 1px solid var(--color-border);
-        color: var(--color-text-secondary);
+        color: #b0b0b6;
         font-size: 1rem;
-        padding: 0 24px 24px;
+        line-height: 1.65;
+        padding: 20px 26px 26px;
       }
 
       .site-footer {
@@ -748,14 +806,16 @@
 
       .footer-grid {
         display: grid;
-        grid-template-columns: 1.35fr repeat(3, 1fr);
-        gap: 46px;
+        grid-template-columns: 1.5fr repeat(3, 1fr);
+        gap: 56px 48px;
       }
 
       .footer-brand p {
-        max-width: 330px;
+        max-width: 360px;
         color: var(--color-text-secondary);
-        margin: 18px 0 0;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        margin: 20px 0 0;
       }
 
       .footer-col h3 {
@@ -828,14 +888,26 @@
         }
 
         .hero-screenshot-wrap {
-          max-width: 640px;
-          margin: 8px auto 0;
+          max-width: 680px;
+          margin: 12px auto 0;
+        }
+
+        .interface-layout {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .interface-copy {
+          max-width: none;
         }
 
         .feature-grid,
-        .steps-grid,
-        .interface-grid {
+        .steps-timeline {
           grid-template-columns: repeat(2, 1fr);
+        }
+
+        .steps-timeline::before {
+          display: none;
         }
 
         .download-grid,
@@ -846,7 +918,8 @@
 
       @media (max-width: 760px) {
         :root {
-          --section-pad: 68px;
+          --section-pad: 72px;
+          --section-pad-lg: 84px;
         }
 
         .container {
@@ -900,11 +973,15 @@
         }
 
         .hero {
-          padding: 58px 0 48px;
+          padding: 56px 0 52px;
+        }
+
+        .hero-grid {
+          gap: 40px;
         }
 
         .hero h1 {
-          font-size: clamp(2.8rem, 14vw, 4.1rem);
+          font-size: clamp(2.35rem, 10vw, 3.2rem);
         }
 
         .hero-actions,
@@ -920,8 +997,7 @@
         }
 
         .feature-grid,
-        .steps-grid,
-        .interface-grid,
+        .steps-timeline,
         .download-grid,
         .platform-grid,
         .footer-grid {
@@ -939,10 +1015,6 @@
 
         .preview-shell {
           align-items: stretch;
-        }
-
-        .hero-caption {
-          text-align: left;
         }
 
         .download-panel {
@@ -1007,11 +1079,10 @@
               <span class="status-dot" aria-hidden="true"></span>
               Available now for macOS
             </div>
-            <h1>Turn any text into clean natural <span class="hero-title-line">mint speech</span>.</h1>
+            <h1>Turn any text into clean, natural speech.</h1>
             <p>
-              Listen to any text with Edge TTS, Gemini, or local LLMs on your device. Bookmarks,
-              MP3 export, and history keep your reading close—and quick shortcuts put speech one
-              keystroke away, wherever you are.
+              Listen to any text with Edge TTS, Gemini, or local LLMs on your device. Use bookmarks,
+              history, shortcuts, and MP3 export to turn reading into a simple workflow.
             </p>
             <div class="hero-actions">
               <!-- TODO: Replace with live Mac App Store URL -->
@@ -1038,10 +1109,9 @@
                 width="598"
                 height="707"
                 fetchpriority="high"
-                alt="Mint Speech app interface showing text input, voice selection, playback controls, and TTS engine options."
+                alt="Mint Speech app interface showing speech practice text, voice controls, and presets"
               />
             </div>
-            <p class="hero-caption">Edge TTS, Gemini, and local LLMs—one calm app, available globally via quick shortcuts.</p>
           </div>
         </div>
       </section>
@@ -1079,9 +1149,10 @@
         </div>
       </section>
 
-      <section class="section" id="features">
+      <section class="section section-lg" id="features">
         <div class="container">
           <div class="section-heading">
+            <p class="section-eyebrow">Features</p>
             <h2>Everything you need for natural text-to-speech.</h2>
             <p>Multiple engines, quick shortcuts, and the essentials to listen, save, and export—without leaving your flow.</p>
           </div>
@@ -1120,66 +1191,77 @@
         </div>
       </section>
 
-      <section class="section section-muted" id="how-it-works">
+      <section class="section section-muted section-lg" id="how-it-works">
         <div class="container">
           <div class="section-heading center">
+            <p class="section-eyebrow">How it works</p>
             <h2>Start listening in minutes.</h2>
             <p>Three simple steps from install to natural speech—wherever you work or read.</p>
           </div>
-          <div class="steps-grid">
+          <div class="steps-timeline">
             <article class="step-card">
-              <span class="step-number">1</span>
+              <span class="step-number" aria-hidden="true">1</span>
               <h3>Download Mint Speech</h3>
-              <p>Install the macOS app and open a calm workspace built for text-to-speech.</p>
+              <p>Install the macOS app and open it from the menu bar.</p>
             </article>
             <article class="step-card">
-              <span class="step-number">2</span>
+              <span class="step-number" aria-hidden="true">2</span>
               <h3>Pick your voice and engine</h3>
-              <p>Choose Edge TTS, Gemini, or a local LLM—and set a quick shortcut for instant access.</p>
+              <p>Choose Edge TTS, Gemini, or a local LLM, then adjust speed and voice.</p>
             </article>
             <article class="step-card">
-              <span class="step-number">3</span>
+              <span class="step-number" aria-hidden="true">3</span>
               <h3>Listen, save, and export</h3>
-              <p>Paste or select text, bookmark what matters, export MP3s, and revisit anything in history.</p>
+              <p>Play text aloud, use bookmarks and history, or export MP3s for later.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section" id="interface">
+      <section class="section section-lg" id="interface">
         <div class="container">
-          <div class="section-heading">
-            <h2>A focused interface built for listening.</h2>
-            <p>Mint Speech feels like a calm dashboard: your text front and center, voices and engines one tap away, and no unnecessary noise.</p>
-          </div>
-          <!-- TODO: Add additional real Mint Speech screenshots when available. -->
-          <div class="interface-grid">
-            <article class="interface-card">
-              <span class="interface-card-icon" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
-              </span>
-              <h3>Text-first workspace</h3>
-              <p>Paste or type what you want to hear. Playback controls stay close, then fade back so the words stay center stage.</p>
-            </article>
-            <article class="interface-card">
-              <span class="interface-card-icon" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Zm-7 9v2a7 7 0 0 0 14 0v-2M12 19v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
-              </span>
-              <h3>Voices and TTS engines</h3>
-              <p>Switch between Edge TTS, Gemini, and local LLMs, with voice selection and presets in one calm view.</p>
-            </article>
-            <article class="interface-card">
-              <span class="interface-card-icon" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 2v4m8-4v4M4 9h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
-              </span>
-              <h3>Bookmarks, history, and export</h3>
-              <p>Save favorites, revisit recent readings, and download MP3s—without breaking your reading flow.</p>
-            </article>
+          <div class="interface-layout">
+            <div class="interface-copy">
+              <div class="section-heading">
+                <p class="section-eyebrow">Workflow</p>
+                <h2>Built for listening, saving, and exporting.</h2>
+                <p>Mint Speech keeps text, voice controls, shortcuts, bookmarks, and export tools in one calm workspace.</p>
+              </div>
+            </div>
+            <div class="interface-panels">
+              <article class="interface-panel">
+                <span class="interface-panel-icon" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+                </span>
+                <div>
+                  <h3>Text-first workspace</h3>
+                  <p>Paste or type what you want to hear, then play it instantly.</p>
+                </div>
+              </article>
+              <article class="interface-panel">
+                <span class="interface-panel-icon" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Zm-7 9v2a7 7 0 0 0 14 0v-2M12 19v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+                </span>
+                <div>
+                  <h3>Voices and TTS engines</h3>
+                  <p>Switch between Edge TTS, Gemini, and local LLM voices from one place.</p>
+                </div>
+              </article>
+              <article class="interface-panel">
+                <span class="interface-panel-icon" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 2v4m8-4v4M4 9h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+                <div>
+                  <h3>Bookmarks, history, and export</h3>
+                  <p>Save favorites, revisit recent listening, and export audio when needed.</p>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section section-muted" id="download">
+      <section class="section section-muted section-lg" id="download">
         <div class="container">
           <div class="download-panel">
             <div class="download-intro">
@@ -1228,9 +1310,10 @@
         </div>
       </section>
 
-      <section class="section" id="faq">
+      <section class="section section-faq section-lg" id="faq">
         <div class="container">
           <div class="section-heading center">
+            <p class="section-eyebrow">FAQ</p>
             <h2>Frequently asked questions</h2>
             <p>Clear answers about text-to-speech engines, platforms, and what Mint Speech is designed to do.</p>
           </div>
@@ -1279,6 +1362,13 @@
             </details>
             <details class="faq-item">
               <summary>
+                <span>Does Mint Speech replace professional speech or accessibility support?</span>
+                <span class="faq-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              </summary>
+              <div class="faq-answer">No. Mint Speech is a text-to-speech and listening workflow tool. It does not replace guidance from a qualified professional or platform accessibility features.</div>
+            </details>
+            <details class="faq-item">
+              <summary>
                 <span>When will other platforms be available?</span>
                 <span class="faq-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
               </summary>
@@ -1305,7 +1395,7 @@
                 <span class="brand-dot" aria-hidden="true"></span>
               </span>
             </a>
-            <p>Premium text-to-speech with Edge TTS, Gemini, and local LLMs—bookmarks, MP3 export, history, and quick shortcuts on your devices.</p>
+            <p>Premium text-to-speech with Edge TTS, Gemini, local LLM voice options, bookmarks, history, shortcuts, and MP3 export.</p>
           </div>
           <div class="footer-col">
             <h3>Product</h3>
